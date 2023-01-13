@@ -4,7 +4,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import App from "./App";
 import { initialGameData } from "./common/data";
 
-test("renders main header", () => {
+test("Renders main header", () => {
   render(<App />);
   const titleEl = screen.getByRole("heading", {
     name: /football world cup score board/i,
@@ -12,7 +12,7 @@ test("renders main header", () => {
   expect(titleEl).toBeInTheDocument();
 });
 
-test("renders Summary, length and descending by default", () => {
+test("Renders Summary, length and descending by default", () => {
   render(<App />);
   const listItems = screen.getAllByRole("listitem");
   expect(listItems).toHaveLength(initialGameData.length);
@@ -30,7 +30,7 @@ test("renders Summary, length and descending by default", () => {
   expect(lastElement.textContent).toMatch(new RegExp(`^${firstElText}`, "i"));
 });
 
-test("Add a new game and check summary, length and content of first listitem (most recent)", () => {
+test("Add a new game and check summary, length and content of first listitem (as most recent)", () => {
   render(<App />);
 
   const homeInput = screen.getByLabelText("Home team");
