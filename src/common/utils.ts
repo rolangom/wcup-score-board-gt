@@ -1,3 +1,5 @@
+import { Game, ScoreBoard } from "../types";
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
  * The value is no lower than min (or the next integer greater than min
@@ -23,3 +25,16 @@ export function naiveID(n?: number): string {
   const ts = Date.now().toString(36) + randomStrOf4chrs;
   return ts;
 }
+
+export function convertArrayToKeyRecords(games: Game[]): ScoreBoard {
+  return games.reduce((acc, it) => {
+    acc[it.id] = it;
+    return acc;
+  }, {} as ScoreBoard);
+}
+
+export function sortGamesByKeyDesc(games: Game[]): Game[] {
+  const newGames = games.slice().sort((a, b) => b.id.localeCompare(a.id));
+  return newGames;
+}
+
