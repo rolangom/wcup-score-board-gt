@@ -23,14 +23,24 @@ function useAppStateAndActions() {
     },
     [dispatch]
   );
+  const finishGame = useCallback(
+    (id: string) => {
+      dispatch({
+        type: "FINISH_GAME",
+        payload: id,
+      });
+    },
+    [dispatch]
+  );
   return {
     state,
     addGame,
+    finishGame,
   };
 }
 
 function App() {
-  const { state, addGame } = useAppStateAndActions();
+  const { state, addGame, finishGame } = useAppStateAndActions();
   return (
     <div>
       <header>
@@ -39,7 +49,7 @@ function App() {
       <main>
         <StartGame addGame={addGame} />
         <hr />
-        <Summary games={state} />
+        <Summary games={state} finishGame={finishGame} />
       </main>
     </div>
   );

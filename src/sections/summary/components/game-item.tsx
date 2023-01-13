@@ -15,9 +15,10 @@ function TeamScoreItem({ team }: TeamScoreProps) {
 
 interface GameItemProps {
   game: Game;
+  finish: (id: string) => void;
 }
 
-function GameItem({ game }: GameItemProps) {
+function GameItem({ game, finish }: GameItemProps) {
   const { homeTeam, awayTeam, id } = game;
   return (
     <li>
@@ -25,6 +26,10 @@ function GameItem({ game }: GameItemProps) {
         <TeamScoreItem team={homeTeam} />
         {" - "}
         <TeamScoreItem team={awayTeam} />
+      </span>
+      &nbsp;
+      <span className="actions">
+        <button onClick={() => finish(id)}>Finish</button>
       </span>
     </li>
   );

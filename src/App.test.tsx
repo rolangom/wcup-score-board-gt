@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import App from "./App";
 import { initialGameData } from "./common/data";
 
@@ -54,4 +54,26 @@ test("Add a new game and check summary, length and content of first listitem (mo
   expect(firstElement.textContent).toMatch(
     new RegExp(`^${expectedFirstElText}`, "i")
   );
+});
+
+test("Finish a game and expect to be removed from summary", () => {
+  render(<App />);
+
+  const listItems = screen.getAllByRole("listitem");
+  const prevLength = listItems.length;
+
+  const [firstElement] = listItems;
+
+  const finishBtn = within(firstElement).getByRole("button", {
+    name: /finish/i,
+  });
+
+  // click the finish button to remove from document
+  fireEvent.click(finishBtn);
+
+  expect(firstElement).not.toBeInTheDocument();
+
+  // check the new listitems length is prevLength - 1
+  const newListItems = screen.getAllByRole("listitem");
+  expect(newListItems.length).toBe(prevLength - 1);
 });

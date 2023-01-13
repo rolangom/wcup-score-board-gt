@@ -5,8 +5,9 @@ import GameItem from "./components/game-item";
 
 interface SummaryProps {
   games: ScoreBoard;
+  finishGame: (id: string) => void;
 }
-function Summary({ games }: SummaryProps) {
+function Summary({ games, finishGame }: SummaryProps) {
   const gamesSorted = useMemo(
     () => sortGamesByKeyDesc(Object.values(games)),
     [games]
@@ -16,7 +17,7 @@ function Summary({ games }: SummaryProps) {
       <h2>Summary</h2>
       <ul>
         {gamesSorted.map((it) => (
-          <GameItem key={it.id} game={it} />
+          <GameItem key={it.id} game={it} finish={finishGame} />
         ))}
       </ul>
     </section>
