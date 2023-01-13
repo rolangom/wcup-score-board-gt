@@ -38,3 +38,13 @@ export function sortGamesByKeyDesc(games: Game[]): Game[] {
   return newGames;
 }
 
+export function handleFormEventPrepareValues(
+  ev: React.FormEvent<HTMLFormElement>
+) {
+  ev.preventDefault();
+  const form = ev.target as HTMLFormElement;
+  const formData = new FormData(form);
+  const formProps = Object.fromEntries(formData);
+  return [form, formProps] as const;
+}
+
