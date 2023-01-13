@@ -37,9 +37,11 @@ function EditGameItem({ game, updateGameScore, cancel }: Props) {
         label={game.awayTeam.name}
         defaultValue={game.awayTeam.score}
       />
-      <button type="submit">Update</button>
       <button type="button" onClick={cancel}>
         Cancel
+      </button>
+      <button type="submit" className="primary">
+        Update
       </button>
       <hr />
     </form>

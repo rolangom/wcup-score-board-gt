@@ -15,11 +15,13 @@ function StartGame({ addGame }: Props) {
     form.reset();
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add_game" onSubmit={handleSubmit}>
       <h2>Enter Start Game info</h2>
       <SimpleField name="homeTeam" id="home-team-input" label="Home team" />
       <SimpleField name="awayTeam" id="away-team-input" label="Away team" />
-      <button type="submit">Start Game</button>
+      <button type="submit" className="primary">
+        Start Game
+      </button>
     </form>
   );
 }

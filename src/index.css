@@ -11,3 +11,93 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1, h2, h3 {
+  color: darkslategrey;
+}
+
+label {
+  font-style: italic;
+  font-size: 14px;
+}
+
+form > button {
+  color: darkslategrey;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-right: 5px;
+  background-color: white;
+  border: 2px solid darkslategrey;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+form > button.primary {
+  color: white;
+  background-color: darkslategrey;
+  border: 0px solid transparent;
+}
+
+ul {
+  margin: 0px;
+  list-style-type: none;
+  padding-inline-start: 0px;
+}
+
+li {
+  display: flex;
+  padding: 5px 5px;
+}
+li > .text {
+  color: darkslategrey;
+  flex: 1;
+}
+li:nth-child(odd) {
+  background-color: azure;
+}
+li > .actions > button {
+  padding: 5px 15px;
+  color: darkslategrey;
+  border: 0px solid transparent;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+li > .actions > button.finish {
+  color: tomato;
+}
+li > .actions > button:disabled {
+  color: lightgray;
+}
+li:hover {
+  background-color: lightgray;
+}
+
+.app_container header {
+  text-align: center;
+  background-color: lightcyan;
+  padding: 5px 5px;
+  color: darkslategrey;
+}
+
+.app_container main {
+  padding: 5px;
+  max-width: 480px;
+  margin: auto;
+}
+
+.app_container main .add_game {
+  padding: 10px;
+}
+
+input {
+  padding: 7px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: lightslategray;
+  margin-bottom: 5px;
+}
+
+input[type="number"]{
+  text-align: right;
+}

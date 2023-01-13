@@ -51,7 +51,7 @@ function useAppStateAndActions() {
 function App() {
   const { state, addGame, finishGame, updateScore } = useAppStateAndActions();
   return (
-    <div>
+    <div className="app_container">
       <header>
         <h1>Football World Cup Score Board</h1>
       </header>

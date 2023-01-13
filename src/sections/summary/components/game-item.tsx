@@ -42,7 +42,11 @@ function GameItem({ game, finish, updateGame }: GameItemProps) {
           Edit
         </button>
         &nbsp;
-        <button onClick={() => finish(id)} disabled={isEditMode}>
+        <button
+          className="finish"
+          onClick={() => finish(id)}
+          disabled={isEditMode}
+        >
           Finish
         </button>
       </span>
