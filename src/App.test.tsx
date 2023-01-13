@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 import React from "react";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import App from "./App";
@@ -76,4 +77,47 @@ test("Finish a game and expect to be removed from summary", () => {
   // check the new listitems length is prevLength - 1
   const newListItems = screen.getAllByRole("listitem");
   expect(newListItems.length).toBe(prevLength - 1);
+});
+
+test("Edit a game and expect to be updated in summary", async () => {
+  render(<App />);
+
+  const listItems = screen.getAllByRole("listitem");
+
+  const [firstElement] = listItems;
+
+  const editBtn = within(firstElement).getByRole("button", { name: /edit/i });
+  fireEvent.click(editBtn);
+
+  // After edit btn is clicked, the edit form is displayed
+  expect(within(firstElement).getByText(/edit scores/i)).toBeInTheDocument();
+
+  const newHomeScore = 12,
+    newAwayScore = 8;
+
+  const homeInput = firstElement.querySelector(`input[name="homeTeam"]`)!;
+  const awayInput = firstElement.querySelector(`input[name="awayTeam"]`)!;
+  const homeLabel = firstElement.querySelector(`label[for="${homeInput.id}"]`)!;
+  const awayLabel = firstElement.querySelector(`label[for="${awayInput.id}"]`)!;
+
+  const homeTeam = homeLabel.textContent;
+  const awayTeam = awayLabel.textContent;
+
+  fireEvent.change(homeInput, { target: { value: newHomeScore } });
+  fireEvent.change(awayInput, { target: { value: newAwayScore } });
+
+  // click update btn after update scores
+  const updateBtn = within(firstElement).getByRole("button", {
+    name: /update/i,
+  });
+  fireEvent.click(updateBtn);
+
+  // Refetch summary list items to validate updated scores
+  const newListItems = screen.getAllByRole("listitem");
+
+  const [newFirstElement] = newListItems;
+  const firstElText = `${homeTeam} ${newHomeScore} - ${awayTeam} ${newAwayScore}`;
+  expect(newFirstElement.textContent).toMatch(
+    new RegExp(`^${firstElText}`, "i")
+  );
 });

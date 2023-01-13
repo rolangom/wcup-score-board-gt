@@ -1,11 +1,10 @@
-import React, { useReducer } from "react";
 import React, { useCallback, useReducer } from "react";
 import "./App.css";
 import { initialGameData } from "./common/data";
 import { convertArrayToKeyRecords } from "./common/utils";
 import Summary from "./sections/summary";
 import mainReducer from "./modules/main-reducer";
-import { HomeAwayTuple } from "./types";
+import { HomeAwayTuple, UpdateScoreAction } from "./types";
 import StartGame from "./sections/start-game";
 
 function useAppStateAndActions() {
@@ -32,15 +31,25 @@ function useAppStateAndActions() {
     },
     [dispatch]
   );
+  const updateScore = useCallback(
+    (payload: UpdateScoreAction["payload"]) => {
+      dispatch({
+        type: "UPDATE_SCORE",
+        payload,
+      });
+    },
+    [dispatch]
+  );
   return {
     state,
     addGame,
     finishGame,
+    updateScore,
   };
 }
 
 function App() {
-  const { state, addGame, finishGame } = useAppStateAndActions();
+  const { state, addGame, finishGame, updateScore } = useAppStateAndActions();
   return (
     <div>
       <header>
@@ -49,7 +58,11 @@ function App() {
       <main>
         <StartGame addGame={addGame} />
         <hr />
-        <Summary games={state} finishGame={finishGame} />
+        <Summary
+          games={state}
+          finishGame={finishGame}
+          updateGame={updateScore}
+        />
       </main>
     </div>
   );

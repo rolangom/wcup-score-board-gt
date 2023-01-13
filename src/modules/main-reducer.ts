@@ -5,6 +5,7 @@ import {
   ScoreBoard,
   GameAction,
   StartGameAction,
+  UpdateScoreAction,
 } from "../types";
 
 function handleStarGameAction(
@@ -29,6 +30,30 @@ function handleStarGameAction(
   };
 }
 
+function handleUpdateScoreAction(
+  state: ScoreBoard,
+  action: UpdateScoreAction
+): ScoreBoard {
+  const {
+    id,
+    scores: [homeScore, awayScore],
+  } = action.payload;
+  return {
+    ...state,
+    [id]: {
+      ...state[id],
+      homeTeam: {
+        ...state[id].homeTeam,
+        score: homeScore,
+      },
+      awayTeam: {
+        ...state[id].awayTeam,
+        score: awayScore,
+      },
+    },
+  };
+}
+
 function handleFinishGameAction(
   state: ScoreBoard,
   action: FinishGameAction
@@ -42,6 +67,8 @@ function reducer(state: ScoreBoard, action: GameAction): ScoreBoard {
   switch (action.type) {
     case "START_GAME":
       return handleStarGameAction(state, action);
+    case "UPDATE_SCORE":
+      return handleUpdateScoreAction(state, action);
     case "FINISH_GAME":
       return handleFinishGameAction(state, action);
     default:

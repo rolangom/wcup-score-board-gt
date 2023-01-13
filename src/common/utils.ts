@@ -48,3 +48,4 @@ export function handleFormEventPrepareValues(
   return [form, formProps] as const;
 }
 
+export const toggleReducer = (state: boolean, _action?: any) => !state;
